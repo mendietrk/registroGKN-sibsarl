@@ -188,7 +188,7 @@ router.delete('/ubicaciones/:id', async (req, res) => {
   }
 });
 
-const Ubicacion = require("../models/Ubicacion2GKN");
+const Ubicacion = require("../models/ubicacion2GKN");
 
 router.get("/SIB", async (req,res)=>{
 
