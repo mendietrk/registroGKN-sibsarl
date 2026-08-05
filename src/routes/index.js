@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Ubicacion = require("../models/ubicacionGKN.js");
+
 const Gasto = require("../models/gastos.js"); // corregido
 
 router.get("/gt", async (req, res) => {
@@ -188,6 +188,32 @@ router.delete('/ubicaciones/:id', async (req, res) => {
   }
 });
 
+const Ubicacion = require("../models/Ubicacion2GKN");
+
+router.get("/SIB", async (req,res)=>{
+
+    const limite = 10;
+
+    const pagina = parseInt(req.query.pagina) || 1;
+
+    const total = await Ubicacion.countDocuments();
+
+    const totalPaginas = Math.ceil(total/limite);
+
+    const registros = await Ubicacion.find()
+        .sort({fechaHora:-1})
+        .skip((pagina-1)*limite)
+        .limit(limite);
+
+    res.render("registrosSIB",{
+
+        registros,
+        pagina,
+        totalPaginas
+
+    });
+
+});
 
 
 module.exports = router;
